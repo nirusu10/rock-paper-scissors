@@ -1,4 +1,5 @@
 const choices = ['rock', 'paper', 'scissors']
+const choiceButtons = document.querySelectorAll('.choice-button')
 
 function getComputerChoice() {
   const randomIndex = Math.floor(Math.random() * choices.length)
@@ -15,7 +16,7 @@ function getPlayerChoice() {
   return choice
 }
 
-function playGame() {
+const gameController = (function playGame() {
   let playerScore = 0
   let computerScore = 0
   let round = 1
@@ -63,14 +64,13 @@ function playGame() {
     console.log("It's a draw.")
   }
 
-  while (round <= 5) {
-    console.log('ROUND', round)
-    const computerChoice = getComputerChoice()
-    const playerChoice = getPlayerChoice()
-    playRound(playerChoice, computerChoice)
-    console.log('SCORE:', playerScore, computerScore)
-    round++
-  }
+  return { playRound }
+})()
 
-  console.log(`FINAL SCORE: Player ${playerScore} - ${computerScore} Computer`)
-}
+choiceButtons.forEach((button) =>
+  button.addEventListener('click', (e) => {
+    const playerChoice = e.target.dataset.choice
+    const computerChoice = getComputerChoice()
+    gameController.playRound(playerChoice, computerChoice)
+  })
+)
