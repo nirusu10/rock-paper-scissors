@@ -1,21 +1,32 @@
 const CHOICES = ['rock', 'paper', 'scissors']
+const optionButtons = document.querySelectorAll('.option-button')
 
+let round = 1
 let humanScore = 0
 let computerScore = 0
+
+optionButtons.forEach((button) => {
+  button.addEventListener('click', (e) => handleButtonClick(e))
+})
+
+function handleButtonClick(event) {
+  const playerChoice = event.target.dataset.option
+  const computerChoice = getComputerChoice()
+  const result = playRound(playerChoice, computerChoice)
+  displayChoices(playerChoice, computerChoice)
+  displayResult(result)
+  updateScore(result)
+  displayScore()
+  round++
+  displayRound()
+  if (round > 5) {
+    gameOver()
+  }
+}
 
 function getComputerChoice() {
   const randomIndex = Math.floor(Math.random() * 3)
   return CHOICES[randomIndex]
-}
-
-function getHumanChoice() {
-  let choice = ''
-  while (!CHOICES.includes(choice)) {
-    choice = window
-      .prompt('What will your choice be? Rock, paper or scissors?')
-      .toLowerCase()
-  }
-  return choice
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -46,32 +57,42 @@ function playRound(humanChoice, computerChoice) {
   return 0
 }
 
-const playGame = (rounds) => {
-  let round = 1
-  while (round <= rounds) {
-    console.log('ROUND ' + round + ':')
-    const humanChoice = getHumanChoice()
-    const computerChoice = getComputerChoice()
-    console.log('Player chose ' + humanChoice)
-    console.log('Computer chose ' + computerChoice)
-    const result = playRound(humanChoice, computerChoice)
+function displayChoices(humanChoice, computerChoice) {
+  const choicesDisplay = document.querySelector('.choices-display')
+  choicesDisplay.textContent = `You chose ${humanChoice}, computer chose ${computerChoice}`
+}
 
-    if (result == 0) {
-      console.log(`It's a draw. Both players chose ${humanChoice}`)
-    } else if (result == -1) {
-      computerScore++
-      console.log(`You lose! ${computerChoice} beats ${humanChoice}`)
-    } else {
-      humanScore++
-      console.log(`You win! ${humanChoice} beats ${computerChoice}`)
-    }
+function displayResult(result) {
+  const resultDisplay = document.querySelector('.result-display')
+  if (result == -1) resultDisplay.textContent = 'You lose!'
+  if (result == 0) resultDisplay.textContent = "It's a draw!"
+  if (result == 1) resultDisplay.textContent = 'You win!'
+}
 
-    if (round != rounds)
-      console.log(
-        `CURRENT SCORE: Human ${humanScore} - ${computerScore} Computer`
-      )
+function displayScore() {
+  const scoreDisplay = document.querySelector('.score-display')
+  scoreDisplay.textContent = `Human ${humanScore} - ${computerScore} Computer`
+}
 
-    round++
-  }
-  console.log(`FINAL SCORE: HUMAN ${humanScore} - ${computerScore} COMPUTER`)
+function displayRound() {
+  const roundDisplay = document.querySelector('.round-display')
+  roundDisplay.textContent = `Round ${round}`
+}
+
+function updateScore(result) {
+  if (result == 1) humanScore++
+  if (result == -1) computerScore++
+}
+
+function disableButtons() {
+  optionButtons.forEach((button) => {
+    button.removeEventListener('click', handleButtonClick)
+    button.disabled = true
+  })
+}
+
+function gameOver() {
+  const resultDisplay = document.querySelector('.result-display')
+  resultDisplay.textContent = 'GAME OVER - FINAL SCORE:'
+  disableButtons()
 }
