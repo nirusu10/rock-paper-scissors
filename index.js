@@ -1,0 +1,58 @@
+const CHOICES = ['rock', 'paper', 'scissors']
+let humanScore = 0
+let computerScore = 0
+
+function getComputerChoice() {
+  const randomIndex = Math.floor(Math.random() * CHOICES.length)
+  return CHOICES[randomIndex]
+}
+
+function getHumanChoice() {
+  let humanChoice = ''
+  while (!CHOICES.includes(humanChoice)) {
+    humanChoice = prompt('Choose: Rock, paper or scissors.').toLowerCase()
+
+    if (!CHOICES.includes(humanChoice)) {
+      console.error('Choose either "rock", "paper" or "scissors".')
+    }
+  }
+  return humanChoice
+}
+
+function playRound(humanChoice, computerChoice) {
+  switch (humanChoice) {
+    case 'rock':
+      if (computerChoice === 'scissors') {
+        humanScore++
+        break
+      } else if (computerChoice === 'paper') {
+        computerScore++
+        break
+      }
+    case 'paper':
+      if (computerChoice === 'rock') {
+        humanScore++
+        break
+      } else if (computerChoice === 'scissors') {
+        computerScore++
+        break
+      }
+    case 'scissors':
+      if (computerChoice === 'paper') {
+        humanScore++
+        break
+      } else if (computerChoice === 'rock') {
+        computerScore++
+        break
+      }
+    default:
+      break
+  }
+  console.log(`Human chose: ${humanChoice}. Computer chose ${computerChoice}.`)
+  console.log(`Human ${humanScore} - ${computerScore} Computer`)
+}
+
+const humanSelection = getHumanChoice()
+const computerSelection = getComputerChoice()
+
+playRound(humanSelection, computerSelection)
