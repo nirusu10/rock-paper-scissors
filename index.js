@@ -29,6 +29,16 @@ function getHumanChoice() {
   return humanChoice
 }
 
+function updateDisplay(humanChoice, computerChoice) {
+  const humanScoreDisplay = document.querySelector('#player-score')
+  const computerScoreDisplay = document.querySelector('#computer-score')
+  const choicesDisplay = document.querySelector('#choices-display')
+
+  humanScoreDisplay.textContent = humanScore
+  computerScoreDisplay.textContent = computerScore
+  choicesDisplay.textContent = `Human chose ${humanChoice}. Computer chose ${computerChoice}.`
+}
+
 function playRound(humanChoice, computerChoice) {
   switch (humanChoice) {
     case 'rock':
@@ -64,6 +74,5 @@ function playRound(humanChoice, computerChoice) {
     default:
       break
   }
-  console.log(`Human chose: ${humanChoice}. Computer chose ${computerChoice}.`)
-  console.log(`Human ${humanScore} - ${computerScore} Computer`)
+  updateDisplay(humanChoice, computerChoice)
 }
