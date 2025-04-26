@@ -2,6 +2,16 @@ const CHOICES = ['rock', 'paper', 'scissors']
 let humanScore = 0
 let computerScore = 0
 
+const buttons = document.querySelectorAll('.choice-button')
+
+buttons.forEach((button) =>
+  button.addEventListener('click', (e) => {
+    console.log(e.target.dataset.choice)
+    const humanChoice = e.target.dataset.choice
+    playRound(humanChoice, getComputerChoice())
+  })
+)
+
 function getComputerChoice() {
   const randomIndex = Math.floor(Math.random() * CHOICES.length)
   return CHOICES[randomIndex]
@@ -55,20 +65,5 @@ function playRound(humanChoice, computerChoice) {
       break
   }
   console.log(`Human chose: ${humanChoice}. Computer chose ${computerChoice}.`)
-  console.log(`Human ${humanScore} - ${computerScore} Computer`)
-}
-
-function playGame() {
-  let round = 1
-  while (round <= 5) {
-    console.log('-----------------')
-    console.log(`Round ${round}`)
-    const humanChoice = getHumanChoice()
-    const computerChoice = getComputerChoice()
-    playRound(humanChoice, computerChoice)
-    round++
-  }
-  console.log('----GAME OVER----')
-  console.log('FINAL SCORE:')
   console.log(`Human ${humanScore} - ${computerScore} Computer`)
 }
