@@ -28,6 +28,8 @@ function playRound(humanChoice, computerChoice) {
       } else if (computerChoice === 'paper') {
         computerScore++
         break
+      } else {
+        break
       }
     case 'paper':
       if (computerChoice === 'rock') {
@@ -35,6 +37,8 @@ function playRound(humanChoice, computerChoice) {
         break
       } else if (computerChoice === 'scissors') {
         computerScore++
+        break
+      } else {
         break
       }
     case 'scissors':
@@ -44,6 +48,8 @@ function playRound(humanChoice, computerChoice) {
       } else if (computerChoice === 'rock') {
         computerScore++
         break
+      } else {
+        break
       }
     default:
       break
@@ -52,7 +58,17 @@ function playRound(humanChoice, computerChoice) {
   console.log(`Human ${humanScore} - ${computerScore} Computer`)
 }
 
-const humanSelection = getHumanChoice()
-const computerSelection = getComputerChoice()
-
-playRound(humanSelection, computerSelection)
+function playGame() {
+  let round = 1
+  while (round <= 5) {
+    console.log('-----------------')
+    console.log(`Round ${round}`)
+    const humanChoice = getHumanChoice()
+    const computerChoice = getComputerChoice()
+    playRound(humanChoice, computerChoice)
+    round++
+  }
+  console.log('----GAME OVER----')
+  console.log('FINAL SCORE:')
+  console.log(`Human ${humanScore} - ${computerScore} Computer`)
+}
