@@ -1,0 +1,51 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+button {
+  font-weight: 700;
+  width: 100px;
+  padding: 16px 24px;
+  border: 3px solid black;
+  border-radius: 8px;
+}
+
+h1 {
+  margin-block: 32px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-container {
+  margin-bottom: 16px;
+}
+
+#result-display {
+  text-align: center;
+  height: 120px;
+}
+
+#choices-display,
+#score-display,
+#round-display {
+  height: 33%;
+}
+
+.choice {
+  font-weight: 900;
+}

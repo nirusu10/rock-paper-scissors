@@ -1,6 +1,7 @@
 const CHOICES = ['rock', 'paper', 'scissors']
 let humanScore = 0
 let computerScore = 0
+let round = 1
 
 const buttons = document.querySelectorAll('.choice-button')
 
@@ -33,10 +34,12 @@ function updateDisplay(humanChoice, computerChoice) {
   const humanScoreDisplay = document.querySelector('#player-score')
   const computerScoreDisplay = document.querySelector('#computer-score')
   const choicesDisplay = document.querySelector('#choices-display')
+  const roundDisplay = document.querySelector('#round-display')
 
   humanScoreDisplay.textContent = humanScore
   computerScoreDisplay.textContent = computerScore
-  choicesDisplay.textContent = `Human chose ${humanChoice}. Computer chose ${computerChoice}.`
+  choicesDisplay.innerHTML = `Human chose <span class="choice">${humanChoice}</span>. Computer chose <span class="choice">${computerChoice}</span>.`
+  roundDisplay.innerHTML = `Round ${round}`
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -74,5 +77,6 @@ function playRound(humanChoice, computerChoice) {
     default:
       break
   }
+  round++
   updateDisplay(humanChoice, computerChoice)
 }
